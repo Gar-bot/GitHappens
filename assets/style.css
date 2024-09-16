@@ -100,3 +100,26 @@ footer {
   bottom: 0;
   width: 100%;
 }
+
+.pure-g {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: #bbccd4;
+  font-family: 'Courier New', Courier, monospace;
+  margin-top: 20px;
+}
+
+.grid-item {
+  text-align: center;
+  background-color: #2980b9;
+  color: whitesmoke;
+  padding: 25px;
+  margin: 8px;
+  border-radius: 20px;
+  box-shadow: 4px 8px 12px rgba(2, 4, 6, 0.5);
+}
+
+.grid-item {
+  background: linear-gradient(135deg, #2980b9, #6dd5fa);
+}
