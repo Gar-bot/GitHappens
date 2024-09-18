@@ -38,8 +38,7 @@ document.getElementById("preferencesForm").addEventListener("submit", function(e
     userPreferences.activities = activities.map(activity => activity.trim());  // Trim extra spaces
     
     // Move to the game section
-    document.getElementById("quiz").style.display = "none";
-    document.getElementById("game").style.display = "block";
+    showSection('game');
 });
 
 // Handle game selection
@@ -68,8 +67,7 @@ function processResults() {
     let destination = calculateDestination(userPreferences);
     
     // Display the results section
-    document.getElementById("game").style.display = "none";
-    document.getElementById("results").style.display = "block";
+    showSection('results');
     
     // Show the recommendation to the user
     document.getElementById("destinationDisplay").innerHTML = `
@@ -98,4 +96,24 @@ function calculateDestination(preferences) {
     }
     
     return destination;
+}
+
+// Add navigation functionality for tabs (Quiz, Game, Results)
+document.querySelectorAll('nav ul li a').forEach(function(tab) {
+    tab.addEventListener('click', function(event) {
+        event.preventDefault();
+        const sectionId = this.getAttribute('href').substring(1);  // Remove the "#" from href
+        showSection(sectionId);  // Show the clicked section
+    });
+});
+
+// Function to show one section and hide the others
+function showSection(sectionId) {
+    // Hide all sections
+    document.getElementById('quiz').style.display = 'none';
+    document.getElementById('game').style.display = 'none';
+    document.getElementById('results').style.display = 'none';
+    
+    // Show the selected section
+    document.getElementById(sectionId).style.display = 'block';
 }
