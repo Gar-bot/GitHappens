@@ -1,6 +1,28 @@
 // Store user preferences globally
 let userPreferences = {};
 
+// List of specific vacation destinations based on climate and vacation type
+const vacationDestinations = {
+    tropical: {
+        Beach: "Hawaii",
+        Mountain: "St. Lucia",
+        City: "Honolulu",
+        Nature: "Costa Rica"
+    },
+    cold: {
+        Beach: "Iceland (Hot Springs)",
+        Mountain: "Aspen, Colorado",
+        City: "Reykjavik",
+        Nature: "Alaska"
+    },
+    temperate: {
+        Beach: "California",
+        Mountain: "The Alps",
+        City: "San Francisco",
+        Nature: "New Zealand"
+    }
+};
+
 // Handle form submission from the quiz section
 document.getElementById("preferencesForm").addEventListener("submit", function(event) {
     event.preventDefault();  // Prevent form submission
@@ -50,7 +72,7 @@ function processResults() {
     document.getElementById("results").style.display = "block";
     
     // Show the recommendation to the user
-    document.getElementById("results").innerHTML = `
+    document.getElementById("destinationDisplay").innerHTML = `
         <h2>Recommended Vacation Destination</h2>
         <p>Based on your preferences, we recommend a vacation to: <strong>${destination}</strong></p>
     `;
@@ -58,22 +80,22 @@ function processResults() {
 
 // Algorithm to calculate the vacation destination
 function calculateDestination(preferences) {
-    // Basic example algorithm (this can be expanded)
+    const { climate, vacationType } = preferences;
+
+    // Basic logic using destinations from previous code provided
     let destination = "";
 
-    // Example logic: Climate preference affects the type of vacation destination
-    if (preferences.climate === "tropical" && preferences.vacationType === "Beach") {
+    if (climate === "tropical" && vacationType === "Beach") {
         destination = "Hawaii";
-    } else if (preferences.climate === "cold" && preferences.vacationType === "Mountain") {
+    } else if (climate === "cold" && vacationType === "Mountain") {
         destination = "Aspen, Colorado";
-    } else if (preferences.vacationType === "City") {
+    } else if (vacationType === "City") {
         destination = "New York City";
-    } else if (preferences.vacationType === "Nature") {
+    } else if (vacationType === "Nature") {
         destination = "Yellowstone National Park";
     } else {
         destination = "Bali";  // Default fallback
     }
     
-    // Return the destination
     return destination;
 }
