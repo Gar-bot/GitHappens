@@ -78,7 +78,7 @@ button:hover {
   background-color: #2980b9;
 }
 
-#gameOptions button {
+#environmentOptions button {
   background-color: #2ecc71;
   border: none;
   border-radius: 5px;
@@ -87,7 +87,7 @@ button:hover {
   font-size: 1.2rem;
 }
 
-#gameOptions button:hover {
+#environmentOptions button:hover {
   background-color: #27ae60;
 }
 
