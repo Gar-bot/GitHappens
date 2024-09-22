@@ -1,25 +1,40 @@
 // Store user preferences globally
 let userPreferences = {};
 
-// List of specific vacation destinations based on climate and vacation type
+// Expanded list of specific vacation destinations based on climate and vacation type
 const vacationDestinations = {
     tropical: {
-        Beach: "Hawaii",
+        Beach: "Maldives",
         Mountain: "St. Lucia",
         City: "Honolulu",
-        Nature: "Costa Rica"
+        Nature: "Costa Rica",
+        Surfing: "Bali",
+        Diving: "Fiji",
+        Snorkeling: "Bora Bora",
+        Wildlife: "Galapagos Islands",
+        Nightlife: "Phuket"
     },
     cold: {
         Beach: "Iceland (Hot Springs)",
         Mountain: "Aspen, Colorado",
         City: "Reykjavik",
-        Nature: "Alaska"
+        Nature: "Alaska",
+        Skiing: "Swiss Alps",
+        Hiking: "Patagonia",
+        Glaciers: "Norway",
+        NorthernLights: "Lapland",
+        Wildlife: "Banff"
     },
     temperate: {
         Beach: "California",
         Mountain: "The Alps",
         City: "San Francisco",
-        Nature: "New Zealand"
+        Nature: "New Zealand",
+        Shopping: "Paris",
+        Museums: "London",
+        HistoricalTours: "Rome",
+        CityTours: "Tokyo",
+        WineTasting: "Cape Town"
     }
 };
 
@@ -37,11 +52,11 @@ document.getElementById("preferencesForm").addEventListener("submit", function(e
     userPreferences.budget = parseInt(budget);
     userPreferences.activities = activities.map(activity => activity.trim());  // Trim extra spaces
     
-    // Move to the game section
-    showSection('game');
+    // Move to the environment section
+    showSection('environment');
 });
 
-// Handle game selection
+// Handle environment selection
 let vacationType = "";
 document.getElementById("beachButton").addEventListener("click", function() {
     vacationType = "Beach";
@@ -78,22 +93,20 @@ function processResults() {
 
 // Algorithm to calculate the vacation destination
 function calculateDestination(preferences) {
-    const { climate, vacationType } = preferences;
+    const { climate, vacationType, activities } = preferences;
 
-    // Basic logic using destinations from previous code provided
-    let destination = "";
+    // Match based on climate and vacation type
+    let destination = vacationDestinations[climate][vacationType] || "Bali";  // Default fallback
 
-    if (climate === "tropical" && vacationType === "Beach") {
-        destination = "Hawaii";
-    } else if (climate === "cold" && vacationType === "Mountain") {
-        destination = "Aspen, Colorado";
-    } else if (vacationType === "City") {
-        destination = "New York City";
-    } else if (vacationType === "Nature") {
-        destination = "Yellowstone National Park";
-    } else {
-        destination = "Bali";  // Default fallback
-    }
+    // Refine further by matching activities
+    const climateActivities = vacationDestinations[climate];
+    
+    // Check if user activities match available options for this climate
+    activities.forEach(activity => {
+        if (climateActivities[activity]) {
+            destination = climateActivities[activity];
+        }
+    });
     
     return destination;
 }
@@ -102,7 +115,7 @@ function calculateDestination(preferences) {
 document.querySelectorAll('nav ul li a').forEach(function(tab) {
     tab.addEventListener('click', function(event) {
         event.preventDefault();
-        const sectionId = this.getAttribute('href').substring(1);  // Remove the "#" from href
+        const sectionId = this.getAttribute('href').substring(1);  
         showSection(sectionId);  // Show the clicked section
     });
 });
@@ -111,7 +124,7 @@ document.querySelectorAll('nav ul li a').forEach(function(tab) {
 function showSection(sectionId) {
     // Hide all sections
     document.getElementById('quiz').style.display = 'none';
-    document.getElementById('game').style.display = 'none';
+    document.getElementById('environment').style.display = 'none';
     document.getElementById('results').style.display = 'none';
     
     // Show the selected section
